@@ -1,0 +1,53 @@
+{
+  // Editor settings
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "never"
+  },
+
+  // TypeScript settings
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+
+  // ESLint settings
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "eslint.workingDirectories": ["."],
+
+  // File associations
+  "files.associations": {
+    "*.css": "css",
+    "*.scss": "scss"
+  },
+
+  // Exclude from search
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.next": true,
+    "**/out": true,
+    "**/build": true
+  },
+
+  // CSS/SCSS settings
+  "css.validate": true,
+  "scss.validate": true,
+
+  // Tailwind CSS (if added later)
+  "tailwindCSS.includeLanguages": {
+    "typescript": "javascript",
+    "typescriptreact": "javascript"
+  },
+
+  // Path intellisense
+  "path-intellisense.mappings": {
+    "@": "${workspaceFolder}",
+    "@/components": "${workspaceFolder}/components",
+    "@/lib": "${workspaceFolder}/lib",
+    "@/stores": "${workspaceFolder}/stores",
+    "@/types": "${workspaceFolder}/types",
+    "@/styles": "${workspaceFolder}/styles"
+  }
+}

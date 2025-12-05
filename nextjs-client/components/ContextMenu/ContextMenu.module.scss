@@ -1,0 +1,64 @@
+// ===========================================
+// ContextMenu Component Styles
+// ===========================================
+// Migrated from Vue.js client/src/scss/_ActionsMenu.scss
+
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.menu {
+  position: absolute;
+  left: 15%;
+  list-style: none;
+  background-color: $bg-menu;
+  padding: $spacing-2;
+  color: $color-text-light;
+  text-align: center;
+  width: 60%;
+  border-radius: $border-radius-sm;
+  z-index: $z-index-dropdown;
+}
+
+.menuItem {
+  padding: $spacing-1 0;
+  cursor: pointer;
+  transition: color $transition-base;
+
+  &:hover {
+    color: $color-white;
+  }
+}
+
+// Portal-based context menu (positioned absolutely on screen)
+.contextMenuPortal {
+  position: fixed;
+  z-index: $z-index-popover;
+  min-width: 150px;
+  background-color: $bg-menu;
+  border-radius: $border-radius-sm;
+  padding: $spacing-1 0;
+  box-shadow: $shadow-lg;
+
+  .menuItem {
+    padding: $spacing-2 $spacing-3;
+    color: $color-text-light;
+    cursor: pointer;
+    transition: background $transition-fast;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: $color-white;
+    }
+  }
+}
+
+// Overlay for closing menu when clicking outside
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: $z-index-modal-backdrop;
+  background: transparent;
+}

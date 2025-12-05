@@ -1,0 +1,184 @@
+// ===========================================
+// Editor Component Styles
+// ===========================================
+// Migrated from Vue.js client/src/scss/_Editor.scss
+// Updated for Tiptap editor
+
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.editorContainer {
+  position: relative;
+  width: $content-width;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - $header-height);
+}
+
+.submitButton {
+  position: absolute;
+  bottom: 50px;
+  right: 30px;
+  border-radius: $border-radius-full;
+  cursor: pointer;
+  z-index: $z-index-fixed;
+  background: $color-primary;
+  border: none;
+  width: 50px;
+  height: 50px;
+  @include flex-center;
+  transition:
+    background $transition-base,
+    transform $transition-base;
+
+  &:hover {
+    background: $color-primary-dark;
+    transform: scale(1.05);
+  }
+
+  .icon {
+    font-size: 24px;
+    color: $color-white;
+  }
+}
+
+// Tiptap Editor Toolbar
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: $spacing-2;
+  background: $color-gray-400;
+  border-bottom: 1px solid $color-gray-500;
+}
+
+.toolbarGroup {
+  display: flex;
+  gap: 2px;
+  padding: 0 $spacing-1;
+  border-right: 1px solid $color-gray-500;
+
+  &:last-child {
+    border-right: none;
+  }
+}
+
+.toolbarButton {
+  @include button-reset;
+  padding: 6px 8px;
+  border-radius: 4px;
+  background: transparent;
+  color: $color-gray-800;
+  transition:
+    background $transition-fast,
+    color $transition-fast;
+
+  &:hover {
+    background: $color-gray-300;
+  }
+
+  &.active {
+    background: $color-gray-800;
+    color: $color-white;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// Tiptap Editor Content
+.editorContent {
+  flex: 1;
+  overflow: auto;
+  background-color: $bg-content;
+  @include custom-scrollbar;
+
+  // ProseMirror styles
+  .ProseMirror {
+    padding: $spacing-4;
+    min-height: 100%;
+    outline: none;
+
+    // Placeholder
+    p.is-editor-empty:first-child::before {
+      content: attr(data-placeholder);
+      float: left;
+      color: $color-gray-600;
+      font-size: $font-size-xl;
+      pointer-events: none;
+      height: 0;
+    }
+
+    // Typography
+    h1 {
+      font-size: $font-size-3xl;
+      margin-bottom: $spacing-3;
+    }
+
+    h2 {
+      font-size: $font-size-2xl;
+      margin-bottom: $spacing-2;
+    }
+
+    h3 {
+      font-size: $font-size-xl;
+      margin-bottom: $spacing-2;
+    }
+
+    p {
+      margin-bottom: $spacing-2;
+    }
+
+    ul,
+    ol {
+      padding-left: $spacing-5;
+      margin-bottom: $spacing-2;
+    }
+
+    blockquote {
+      border-left: 3px solid $color-gray-400;
+      padding-left: $spacing-3;
+      margin: $spacing-2 0;
+      color: $color-gray-700;
+    }
+
+    code {
+      background: $color-gray-200;
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-family: $font-family-mono;
+    }
+
+    pre {
+      background: $color-gray-900;
+      color: $color-text-light;
+      padding: $spacing-3;
+      border-radius: $border-radius-sm;
+      overflow-x: auto;
+
+      code {
+        background: none;
+        padding: 0;
+        color: inherit;
+      }
+    }
+
+    hr {
+      border: none;
+      border-top: 2px solid $color-gray-300;
+      margin: $spacing-4 0;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    a {
+      color: $color-primary;
+      cursor: pointer;
+    }
+  }
+}

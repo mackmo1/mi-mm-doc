@@ -1,0 +1,149 @@
+// ===========================================
+// Global Styles
+// ===========================================
+// This file contains global styles applied to the entire application
+// Migrated from Vue.js client/src/scss/_global.scss
+
+@use "variables" as *;
+@use "mixins" as *;
+
+// -------------------------------------------
+// CSS Reset / Base Styles
+// -------------------------------------------
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  color: $color-text-primary;
+  background-color: $color-white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// -------------------------------------------
+// Typography Defaults
+// -------------------------------------------
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-weight: $font-weight-normal;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: $color-primary;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// -------------------------------------------
+// Common Utility Classes (migrated from Vue)
+// -------------------------------------------
+.descIcon {
+  padding: 7px;
+  cursor: pointer;
+  color: $color-gray-700;
+  transition: color $transition-slow;
+
+  &:hover {
+    color: $color-black;
+  }
+}
+
+.title {
+  padding: $spacing-1 0;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: $font-weight-light;
+  transition: color $transition-slow;
+
+  &:hover {
+    color: $color-black;
+  }
+}
+
+// -------------------------------------------
+// Tiptap Editor Styles
+// -------------------------------------------
+// These replace the Trumbowyg styles from the Vue.js version
+
+.tiptap-editor-box {
+  height: calc(100vh - $header-height);
+}
+
+.tiptap-button-pane {
+  background: $color-gray-400;
+}
+
+.tiptap-editor-content {
+  background-color: $bg-content;
+  padding: $spacing-4;
+  min-height: 300px;
+
+  // Placeholder text
+  &.is-empty::before {
+    content: attr(data-placeholder);
+    display: block;
+    color: $color-gray-600;
+    font-size: $font-size-xl;
+    text-align: center;
+    pointer-events: none;
+    height: 0;
+  }
+}
+
+// -------------------------------------------
+// Selection
+// -------------------------------------------
+::selection {
+  background-color: $color-primary;
+  color: $color-white;
+}
+
+// -------------------------------------------
+// Focus Styles
+// -------------------------------------------
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  @include focus-ring;
+}
+
+// -------------------------------------------
+// Scrollbar
+// -------------------------------------------
+body {
+  @include custom-scrollbar;
+}
+
+// -------------------------------------------
+// Disable user select for UI elements
+// -------------------------------------------
+.no-select {
+  user-select: none;
+}

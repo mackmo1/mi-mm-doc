@@ -1,0 +1,144 @@
+// ===========================================
+// Home Page Styles
+// ===========================================
+// Migrated from Vue.js client/src/scss/_App.scss
+
+@use "../styles/variables" as *;
+@use "../styles/mixins" as *;
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  border-bottom: 2px solid $color-black;
+  text-align: center;
+  padding: $spacing-4 0;
+  background-color: $bg-header;
+  height: $header-height;
+}
+
+.headerTitle {
+  color: $color-text-light;
+  text-transform: capitalize;
+  font-style: oblique;
+  font-weight: $font-weight-light;
+}
+
+.template {
+  display: flex;
+  flex: 1;
+}
+
+.branchInfo {
+  position: relative;
+  background-color: $bg-dark;
+  height: calc(100vh - $header-height);
+  flex: 1;
+}
+
+.caption {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: $bg-header;
+  padding: $spacing-4;
+  height: 220px;
+  border: 1px solid $color-black;
+  border-radius: $border-radius-lg;
+  text-align: center;
+
+  p {
+    padding: $spacing-2;
+    color: $color-text-light;
+    font-size: $font-size-xl;
+    margin-bottom: $spacing-4;
+
+    span {
+      color: $color-white;
+      font-weight: $font-weight-semibold;
+    }
+  }
+}
+
+.openButton {
+  display: block;
+  margin: 0 auto;
+  padding: $spacing-3;
+  border-radius: $border-radius-base;
+  cursor: pointer;
+  font-size: $font-size-xl;
+  background: $color-white;
+  border: none;
+  transition: background $transition-base;
+
+  &:hover {
+    background: $color-gray-200;
+  }
+}
+
+// Sidebar placeholder styles
+.sidebar {
+  padding: $spacing-5;
+  height: calc(100vh - $header-height);
+  background-color: $bg-sidebar;
+  width: $sidebar-width;
+  overflow: auto;
+}
+
+.sidebarTitle {
+  font-weight: $font-weight-light;
+  text-align: center;
+  cursor: pointer;
+  padding-bottom: $spacing-2;
+
+  i {
+    margin-left: $spacing-2;
+  }
+}
+
+.placeholder {
+  color: $color-gray-600;
+  text-align: center;
+  padding: $spacing-4;
+}
+
+.closeButton {
+  display: block;
+  margin: $spacing-4 auto 0;
+  padding: $spacing-2;
+  font-size: $font-size-base;
+  border-radius: $border-radius-sm;
+  cursor: pointer;
+  background-color: $color-gray-200;
+  color: #424242;
+  border: 1px solid $color-gray-500;
+  transition: background $transition-slow;
+
+  &:hover {
+    background-color: $color-gray-900;
+    color: $color-gray-100;
+  }
+}
+
+// Editor placeholder styles
+.editor {
+  width: $content-width;
+  height: calc(100vh - $header-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $bg-content;
+}
+
+.editorPlaceholder {
+  text-align: center;
+  color: $color-gray-600;
+
+  h2 {
+    margin-bottom: $spacing-2;
+  }
+}
