@@ -120,6 +120,7 @@ async function fetchApi<T>(endpoint: string, options: RequestInit = {}): Promise
 
 /**
  * Branch API endpoints
+ * Points to the BFF layer which proxies to the Express backend
  */
 const getBranchEndpoint = (level: BranchLevel) => `/branches${level}`;
 
