@@ -2,63 +2,102 @@
 // ContextMenu Component Styles
 // ===========================================
 // Migrated from Vue.js client/src/scss/_ActionsMenu.scss
+// Updated with mobile action sheet support
 
 @use "../../styles/variables" as *;
 @use "../../styles/mixins" as *;
 
 .menu {
-  position: absolute;
-  left: 15%;
+  position: fixed;
+  left: var(--menu-x, 50%);
+  top: var(--menu-y, 50%);
   list-style: none;
   background-color: $bg-menu;
   padding: $spacing-2;
   color: $color-text-light;
   text-align: center;
-  width: 60%;
+  min-width: 180px;
   border-radius: $border-radius-sm;
-  z-index: $z-index-dropdown;
+  z-index: $z-index-popover;
+  box-shadow: $shadow-lg;
+  margin: 0;
+
+  // On mobile, position at bottom as action sheet
+  @media (max-width: $breakpoint-md - 1) {
+    position: fixed;
+    left: 0 !important;
+    right: 0;
+    bottom: 0 !important;
+    top: auto !important;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    border-radius: $border-radius-lg $border-radius-lg 0 0;
+    padding: $spacing-4 $spacing-4 $spacing-5;
+  }
 }
 
 .menuItem {
-  padding: $spacing-1 0;
+  padding: 10px 15px;
   cursor: pointer;
-  transition: color $transition-base;
-
-  &:hover {
-    color: $color-white;
-  }
-}
-
-// Portal-based context menu (positioned absolutely on screen)
-.contextMenuPortal {
-  position: fixed;
-  z-index: $z-index-popover;
-  min-width: 150px;
-  background-color: $bg-menu;
+  @include transition(background);
   border-radius: $border-radius-sm;
-  padding: $spacing-1 0;
-  box-shadow: $shadow-lg;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 
-  .menuItem {
-    padding: $spacing-2 $spacing-3;
-    color: $color-text-light;
-    cursor: pointer;
-    transition: background $transition-fast;
+  // Larger touch targets on mobile (minimum 48px)
+  @media (max-width: $breakpoint-md - 1) {
+    padding: 16px 20px;
+    font-size: $font-size-lg;
+    min-height: 48px;
 
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-      color: $color-white;
+    & + & {
+      margin-top: 8px;
     }
   }
+
+  &:hover,
+  &:active {
+    color: $color-white;
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  i {
+    width: 20px;
+    text-align: center;
+  }
 }
 
-// Overlay for closing menu when clicking outside
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: $z-index-modal-backdrop;
-  background: transparent;
+// Cancel button for mobile (bottom of action sheet)
+.cancelItem {
+  padding: 10px 15px;
+  cursor: pointer;
+  @include transition(background);
+  border-radius: $border-radius-sm;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: $spacing-3;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: $spacing-3;
+  color: $color-gray-400;
+
+  // Hide on desktop
+  @media (min-width: $breakpoint-md) {
+    display: none;
+  }
+
+  @media (max-width: $breakpoint-md - 1) {
+    padding: 16px 20px;
+    font-size: $font-size-lg;
+    min-height: 48px;
+  }
+
+  &:hover,
+  &:active {
+    color: $color-white;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
 }

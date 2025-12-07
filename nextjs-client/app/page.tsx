@@ -5,16 +5,27 @@
 
 'use client';
 
-import { useBranchStore, useIsEditor } from '@/stores';
+import { ContextMenu } from '@/components/ContextMenu';
+import { LeftSidebar } from '@/components/LeftSidebar';
+import { useBranchStore, useIsEditor, useOldBranch } from '@/stores';
 
 import styles from './page.module.scss';
 
 /**
- * Header component
+ * Header component with hamburger menu for mobile
  */
 function Header() {
+  const isEditor = useIsEditor();
+  const toggleSidebar = useBranchStore((state) => state.toggleSidebar);
+
   return (
     <header className={styles.header}>
+      {/* Hamburger button - only visible when editor is open (mobile only via CSS) */}
+      {isEditor && (
+        <button className={styles.hamburger} onClick={toggleSidebar} aria-label="Toggle sidebar">
+          <i className="fa fa-bars" aria-hidden="true" />
+        </button>
+      )}
       <h1 className={styles.headerTitle}>Welcome to kh best documentation side :)</h1>
     </header>
   );
@@ -42,32 +53,48 @@ function WelcomeScreen() {
 }
 
 /**
- * Editor placeholder (will be replaced with actual components in Phase 3-4)
+ * Editor placeholder content (will be replaced with Tiptap in Phase 4)
  */
-function EditorLayout() {
-  const closeEditor = useBranchStore((state) => state.closeEditor);
+function EditorPlaceholder() {
+  const oldBranch = useOldBranch();
 
   return (
-    <div className={styles.template}>
-      {/* Left Sidebar - Placeholder */}
-      <aside className={styles.sidebar}>
-        <h3 className={styles.sidebarTitle}>
-          Add New Main Branch
-          <i className="fa fa-plus-circle" aria-hidden="true" title="Add New Branch" />
-        </h3>
-        <p className={styles.placeholder}>Branch tree will be implemented in Phase 3</p>
-        <button onClick={closeEditor} className={styles.closeButton}>
-          Close The Editor
-        </button>
-      </aside>
-
-      {/* Editor Area - Placeholder */}
-      <main className={styles.editor}>
-        <div className={styles.editorPlaceholder}>
+    <div className={styles.editorPlaceholder}>
+      {oldBranch ? (
+        <>
+          <h2>{oldBranch.title}</h2>
+          <div
+            className={styles.branchContent}
+            dangerouslySetInnerHTML={{ __html: oldBranch.content }}
+          />
+        </>
+      ) : (
+        <>
           <h2>Tiptap Editor</h2>
-          <p>Rich text editor will be implemented in Phase 4</p>
-        </div>
+          <p>Select a branch to edit or create a new one.</p>
+          <p className={styles.hint}>Rich text editor will be implemented in Phase 4</p>
+        </>
+      )}
+    </div>
+  );
+}
+
+/**
+ * Editor layout with sidebar and content area
+ */
+function EditorLayout() {
+  return (
+    <div className={styles.template}>
+      {/* Left Sidebar with Branch Tree */}
+      <LeftSidebar />
+
+      {/* Editor Area */}
+      <main className={styles.editor}>
+        <EditorPlaceholder />
       </main>
+
+      {/* Context Menu Portal */}
+      <ContextMenu />
     </div>
   );
 }

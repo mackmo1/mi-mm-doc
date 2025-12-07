@@ -36,6 +36,9 @@ interface BranchState {
 
   // Editor content (for controlled editor)
   editorContent: string;
+
+  // Mobile sidebar state
+  isSidebarOpen: boolean;
 }
 
 /**
@@ -58,6 +61,11 @@ interface BranchActions {
   // Menu actions
   showMenu: (level: 1 | 2 | 3 | 4 | 5) => void;
   hideAllMenus: () => void;
+
+  // Mobile sidebar actions
+  toggleSidebar: () => void;
+  openSidebar: () => void;
+  closeSidebar: () => void;
 
   // Reset store
   reset: () => void;
@@ -85,6 +93,7 @@ const initialState: BranchState = {
     b5: false,
   },
   editorContent: DEFAULT_EDITOR_CONTENT,
+  isSidebarOpen: false,
 };
 
 /**
@@ -222,6 +231,22 @@ export const useBranchStore = create<BranchState & BranchActions>()(
         ),
 
       /**
+       * Toggle mobile sidebar
+       */
+      toggleSidebar: () =>
+        set((state) => ({ isSidebarOpen: !state.isSidebarOpen }), false, 'toggleSidebar'),
+
+      /**
+       * Open mobile sidebar
+       */
+      openSidebar: () => set({ isSidebarOpen: true }, false, 'openSidebar'),
+
+      /**
+       * Close mobile sidebar
+       */
+      closeSidebar: () => set({ isSidebarOpen: false }, false, 'closeSidebar'),
+
+      /**
        * Reset entire store to initial state
        */
       reset: () => set(initialState, false, 'reset'),
@@ -243,3 +268,4 @@ export const useIsUpdate = () => useBranchStore((state) => state.isUpdate);
 export const useOldBranch = () => useBranchStore((state) => state.oldBranch);
 export const useMenuState = () => useBranchStore((state) => state.menuState);
 export const useEditorContent = () => useBranchStore((state) => state.editorContent);
+export const useIsSidebarOpen = () => useBranchStore((state) => state.isSidebarOpen);

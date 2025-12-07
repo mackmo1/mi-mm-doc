@@ -2,84 +2,158 @@
 // LeftSidebar Component Styles
 // ===========================================
 // Migrated from Vue.js client/src/scss/_LeftSide.scss
+// Updated with mobile-responsive design
 
 @use "../../styles/variables" as *;
 @use "../../styles/mixins" as *;
 
-.sidebar {
+// Mobile overlay backdrop
+.overlay {
+  display: none;
+
+  @media (max-width: $breakpoint-md - 1) {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: $z-index-modal-backdrop;
+  }
+}
+
+.left {
   padding: $spacing-5;
   height: calc(100vh - $header-height);
   background-color: $bg-sidebar;
-  width: $sidebar-width;
   overflow: auto;
   @include custom-scrollbar;
+
+  // Desktop: fixed 25% width
+  @include screen-md {
+    width: 25%;
+    min-width: 280px;
+    position: relative;
+  }
+
+  // Mobile: full-width overlay that slides in
+  @media (max-width: $breakpoint-md - 1) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 85%;
+    max-width: 320px;
+    height: 100vh;
+    z-index: $z-index-modal;
+    transform: translateX(-100%);
+    transition: transform $transition-base;
+    box-shadow: $shadow-lg;
+    padding-top: 60px; // Room for close button
+  }
 }
 
-.mainListTitle {
+// Open state for mobile sidebar (must be top-level for CSS modules export)
+.open {
+  @media (max-width: $breakpoint-md - 1) {
+    transform: translateX(0);
+  }
+}
+
+// Mobile close button (X)
+.mobileCloseBtn {
+  display: none;
+
+  @media (max-width: $breakpoint-md - 1) {
+    display: block;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    @include button-reset;
+    font-size: 24px;
+    padding: 10px;
+    color: $color-gray-700;
+    @include transition(color);
+
+    &:hover {
+      color: $color-black;
+    }
+  }
+}
+
+.mainlistTitle {
   font-weight: $font-weight-light;
   text-align: center;
   cursor: pointer;
   padding-bottom: $spacing-2;
+  margin: 0;
+  font-size: $font-size-lg;
+
+  // Larger touch target on mobile
+  @media (max-width: $breakpoint-md - 1) {
+    padding: $spacing-3;
+    font-size: $font-size-base;
+  }
+
+  i {
+    margin-left: 8px;
+    color: $color-gray-700;
+    @include transition(color);
+  }
 
   &:hover {
     color: $color-primary;
+
+    i {
+      color: $color-text-primary;
+    }
   }
 }
 
+.divider {
+  margin: $spacing-3 0;
+  border: none;
+  border-top: 1px solid $color-gray-400;
+}
+
 .items {
-  padding-left: 40px;
+  padding-left: 0;
   list-style: none;
+  margin: 0;
 }
 
-.item {
-  position: relative;
-  background-color: $color-gray-300;
-  border-radius: $border-radius-sm;
-  margin-top: $spacing-1;
+.loading {
+  text-align: center;
+  padding: $spacing-4;
+  color: $color-text-secondary;
 }
 
-.active {
-  background-color: $color-white !important;
+.empty {
+  text-align: center;
+  padding: $spacing-4;
+  color: $color-text-muted;
+  font-style: italic;
 }
 
-.closeButton {
+.close {
   display: block;
-  margin: 0 auto;
-  margin-top: $spacing-2;
+  margin: $spacing-4 auto 0;
   padding: $spacing-2;
   font-size: $font-size-base;
   border-radius: $border-radius-sm;
   cursor: pointer;
   background-color: $color-gray-200;
-  color: #424242;
-  border: 1px solid $color-gray-500;
-  transition: background $transition-slow;
+  color: $color-gray-800;
+  border: 1px solid $border-color;
+  @include transition;
 
-  &:hover {
-    background-color: $color-gray-900;
-    color: $color-gray-100;
+  // Larger button on mobile
+  @media (max-width: $breakpoint-md - 1) {
+    width: 100%;
+    padding: $spacing-3;
+    font-size: $font-size-lg;
+    margin-top: $spacing-5;
   }
-}
-
-.descIcon {
-  padding: 7px;
-  cursor: pointer;
-  color: $color-gray-700;
-  transition: color $transition-slow;
 
   &:hover {
-    color: $color-black;
-  }
-}
-
-.branchTitle {
-  padding: $spacing-1 0;
-  cursor: pointer;
-  display: inline-block;
-  font-weight: $font-weight-light;
-  transition: color $transition-slow;
-
-  &:hover {
-    color: $color-black;
+    background-color: $bg-dark;
+    color: $color-text-light;
   }
 }

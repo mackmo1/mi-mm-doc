@@ -11,6 +11,7 @@ export {
   useOldBranch,
   useMenuState,
   useEditorContent,
+  useIsSidebarOpen,
 } from './branchStore';
 
 // Branch data store
@@ -22,3 +23,12 @@ export {
   useBranches4,
   useBranches5,
 } from './branchDataStore';
+
+// Context menu store
+export { useContextMenuStore } from './contextMenuStore';
+export {
+  useContextMenuIsOpen,
+  useContextMenuPosition,
+  useContextMenuBranch,
+  useContextMenuLevel,
+} from './contextMenuStore';

@@ -1,0 +1,88 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.item {
+  position: relative;
+  background-color: $color-gray-300;
+  border-radius: $border-radius-sm;
+  margin-top: $spacing-1;
+  list-style: none;
+}
+
+.itemContent {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+
+  // Larger touch targets on mobile (minimum 44px height)
+  @media (max-width: $breakpoint-md - 1) {
+    padding: 12px 10px;
+    min-height: 44px;
+  }
+}
+
+.icon {
+  cursor: pointer;
+  width: 16px;
+  margin-right: 8px;
+  color: $color-gray-700;
+  @include transition(color);
+
+  // Larger icon touch target on mobile
+  @media (max-width: $breakpoint-md - 1) {
+    width: 20px;
+    font-size: 18px;
+    padding: 8px;
+    margin: -8px;
+    margin-right: 4px;
+  }
+
+  &:hover {
+    color: $color-black;
+  }
+}
+
+.iconPlaceholder {
+  width: 16px;
+  margin-right: 8px;
+
+  @media (max-width: $breakpoint-md - 1) {
+    width: 20px;
+    margin-right: 4px;
+  }
+}
+
+.title {
+  margin: 0;
+  padding: 4px 0;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: $font-weight-normal;
+  flex: 1;
+  @include text-truncate;
+
+  // Larger text on mobile
+  @media (max-width: $breakpoint-md - 1) {
+    font-size: $font-size-base;
+    padding: 6px 0;
+  }
+
+  &:hover {
+    color: $color-primary;
+  }
+}
+
+.children {
+  padding-left: 20px;
+  list-style: none;
+  margin: 0;
+
+  // Slightly less indentation on mobile
+  @media (max-width: $breakpoint-md - 1) {
+    padding-left: 15px;
+  }
+}
+
+.active {
+  background-color: $color-white !important;
+}
